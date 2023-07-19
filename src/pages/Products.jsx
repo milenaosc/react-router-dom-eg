@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import ProductService from "../services/ProductService";
 import Card from "../components/Card";
+import store from "../store/store";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllProducts } from "../store/productsSlice";
 
-function Products() {
-  const [data, setData] = useState([]);
+function Products(props) {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     ProductService.getAllProducts()
-      .then((res) => setData(res.data.products))
+      .then((res) => dispatch(getAllProducts(res.data.products)))
       .catch((err) => console.log(err));
   }, []);
+  const { allProducts } = useSelector((state) => state.productStore);
+  console.log(allProducts);
 
-  console.log(data);
   return (
     <div className="products">
-      {data.map((element) => (
+      {allProducts?.map((element) => (
         <Card key={element.id} item={element} />
       ))}
     </div>

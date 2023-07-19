@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Card({ item }) {
-  console.log(item);
   return (
     <div className="card">
-      <h2>{item.title}</h2>
+      <Link to={`/product/${item.id}`}>{item.title}</Link>
       <img
         className="card-image"
         src={item.images[4] ? item.images[4] : item.images[0]}

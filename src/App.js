@@ -1,21 +1,25 @@
-import { useEffect, useState } from 'react';
-import ProductService from './services/ProductService';
-import Card from './components/Card';
-import Navbar from './components/Navbar';
-import { Outlet } from 'react-router-dom';
-import Products from './pages/Products';
+import { useEffect, useState } from "react";
+import ProductService from "./services/ProductService";
+import Navbar from "./components/Navbar";
+import { Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getAllProducts } from "./store/productsSlice";
 
 function App() {
-	return (
-		<div>
-			<Navbar/>
-			<Outlet />
-			{/* 
-			{data.map((product, i) => {
-				return <Card key={i} item={product} />;
-			})} */}
-		</div>
-	);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    ProductService.getAllProducts()
+      .then((res) => dispatch(getAllProducts(res.data.products)))
+      .catch((err) => console.log(err));
+  }, []);
+
+  return (
+    <div>
+      <Navbar />
+      <Outlet />
+    </div>
+  );
 }
 
 export default App;
