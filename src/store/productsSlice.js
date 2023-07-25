@@ -5,20 +5,20 @@ const productsSlice = createSlice({
   initialState: {
     allProducts: [],
     singleProduct: {},
-    totalPrice: null,
-    singleProductClicked: false,
+    // cart: { items: [], totalPrice: 0 },
+    totalPrice: 0,
   },
   reducers: {
     getAllProducts: (state, action) => {
+      state.totalPrice = 0;
       state.allProducts = action.payload;
     },
     getSingleProduct: (state, action) => {
-      state.singleProduct = action.payload;
-      console.log(state.singleProduct);
-      state.singleProductClicked = false;
+      state.singleProduct = action.payload.data;
+      state.totalPrice = 0;
     },
   },
 });
 
-export const { getAllProducts } = productsSlice.actions;
+export const { getAllProducts, getSingleProduct } = productsSlice.actions;
 export default productsSlice.reducer;

@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 function Card({ item }) {
   return (
     <div className="card">
-      <Link to={`/product/${item.id}`}>{item.title}</Link>
+      <Link to={`/product/${item.id}`} state={{ from: item.id }}>
+        {item.title}
+      </Link>
       <img
         className="card-image"
         src={item.images[4] ? item.images[4] : item.images[0]}
